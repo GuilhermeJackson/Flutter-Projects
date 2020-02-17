@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async'; // Requisição de um modo que não precise esperar a requisição estar completa
@@ -11,7 +12,12 @@ void main() async {
   //print(json.decode(response.body)["results"]["currencies"]["USD"]);
   print("q?");
   print(await getData());
-  runApp(MaterialApp(home: Home()));
+  runApp(MaterialApp(home: Home(),
+  theme: ThemeData(   //Definindo tema para o app inteiro
+    hintColor: Colors.amber,
+    primaryColor: Colors.white
+  ),
+  ));
 }
 
 Future<Map> getData() async {
@@ -27,6 +33,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  double dolar;
+  double euro;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +67,53 @@ class _HomeState extends State<Home> {
                       textAlign: TextAlign.center,
                     ));
               } else {
-                return Container(color: Colors.green);  //se não tiver erro, retorna esse else
+                dolar = snapshot.data["results"]["currencies"]["USD"]["buy"];
+                euro = snapshot.data["results"]["currencies"]["EUR"]["buy"];
+
+                return SingleChildScrollView( //se não tiver erro, retorna esse else
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Icon(Icons.monetization_on, size: 150.0, color: Colors.amber),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: "Reais",
+                          labelStyle: TextStyle(color: Colors.amber, fontSize: 18.0),
+                          border: OutlineInputBorder(),
+                          prefix: Text("R\$")
+                        ),
+                        style: TextStyle(
+                          color: Colors.amber, fontSize: 25.0
+                        ),
+                      ),
+                      Divider(),  //Cria espaçamento entre os TextFileds
+                      TextField(
+                        decoration: InputDecoration(
+                            labelText: "Dolares",
+                            labelStyle: TextStyle(color: Colors.amber, fontSize: 18.0),
+                            border: OutlineInputBorder(),
+                            prefix: Text("US\$")
+                        ),
+                        style: TextStyle(
+                            color: Colors.amber, fontSize: 25.0
+                        ),
+                      ),
+                      Divider(),
+                      TextField(
+                        decoration: InputDecoration(
+                            labelText: "Euros",
+                            labelStyle: TextStyle(color: Colors.amber, fontSize: 18.0),
+                            border: OutlineInputBorder(),
+                            prefix: Text("€")
+                        ),
+                        style: TextStyle(
+                            color: Colors.amber, fontSize: 25.0
+                        ),
+                      )
+                    ],
+                  ),
+                );
               }
             }
           },
