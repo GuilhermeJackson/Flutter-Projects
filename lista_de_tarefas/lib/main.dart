@@ -18,6 +18,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List _toDoList = []; //criando uma lista
+  final toDoController = TextEditingController();
+  void _addToDo(){
+    setState(() {  // ************** USADO PARA ATUALIZAR A TELA (NÃO ESQUECER E FICAR SE BATENDO POR CAUSA DISSO, POR FAVOR) **************
+      Map<String, dynamic> newToDo = Map();
+      newToDo["title"] = toDoController.text;   //o map ["title"] recebe o texto do TextField
+      toDoController.text = "";   // usado para resetar o texto
+      newToDo["ok"] = false;    //acabamos de criar a tarefa e a mesma não foi conluida ainda, por isso o ["ok"] é false
+      _toDoList.add(newToDo);   //Adicionando o map na lista
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +47,7 @@ class _HomeState extends State<Home> {
                 Expanded(   // Usado para o TextField e RaisedButton ficarem alinhados
 
                   child: TextField(
+                  controller: toDoController,   //passado as informações para o controlador
                     decoration: InputDecoration(
                         labelText: "Nova tarefa",
                         labelStyle: TextStyle(color: Colors.blue)
@@ -46,13 +58,32 @@ class _HomeState extends State<Home> {
                   color: Colors.blue,
                   child: Text("Add"),
                   textColor: Colors.white,
-                  onPressed: (){
-
-                  },
+                  onPressed: _addToDo,
                 )
               ],
             ),
-          )
+          ),
+
+          Expanded(
+
+            child: ListView.builder(
+                padding: EdgeInsets.only(top: 10.0),
+                itemCount: _toDoList.length,      //pega a quantidade de item na lista
+                // ignore: missing_return
+                itemBuilder: (context, index){    //index é a posição do elemento da lista q esta sendo desenhando
+                  return CheckboxListTile(        // é a celula da lista q ira exibir as informações setadas
+                    title: Text(_toDoList[index]["title"]),
+                    value: _toDoList[index]["ok"],  // se o checkBox está checado ou não
+                    secondary: CircleAvatar(
+                      child: Icon(_toDoList[index]["ok"] ? Icons.check: Icons.face),),//Cria um ícone de acerto
+                    onChanged: (seTaChecado){ //chama funcao quando o status do checkBox muda passando como paramentro bool o seTaChecado
+                      setState(() {   //atualiza a tela
+                        _toDoList[index]["ok"] = seTaChecado;   //se seTaChecado = true, selecionando, clica de novo no checkBox e seTaChecado fica falso
+                      });
+                    },
+                  );
+                }), // ListView é a lista e builder permite criar a lista conforme for construindo a mesma (estilo recyclerView)
+          ),
         ],
       ),
     );
