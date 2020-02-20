@@ -10,7 +10,6 @@ void main() {
     home: Home(),
   ));
 }
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -19,6 +18,22 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List _toDoList = []; //criando uma lista
   final toDoController = TextEditingController();
+
+  //ctrl . O = seleciona initState - metodo q carrega as informações ao inicializar o app
+  @override
+  void initState() {
+    super.initState();
+
+    // chama a função para ler os dados
+    _readData().then((data) {
+      setState(() {
+        _toDoList = json.decode(data);
+      });
+    });
+
+  }
+
+  //_addToDo - criando as tarefas
   void _addToDo(){
     setState(() {  // ************** USADO PARA ATUALIZAR A TELA (NÃO ESQUECER E FICAR SE BATENDO POR CAUSA DISSO, POR FAVOR) **************
       Map<String, dynamic> newToDo = Map();
@@ -26,6 +41,7 @@ class _HomeState extends State<Home> {
       toDoController.text = "";   // usado para resetar o texto
       newToDo["ok"] = false;    //acabamos de criar a tarefa e a mesma não foi conluida ainda, por isso o ["ok"] é false
       _toDoList.add(newToDo);   //Adicionando o map na lista
+      _saveData();
     });
   }
 
@@ -79,6 +95,7 @@ class _HomeState extends State<Home> {
                     onChanged: (seTaChecado){ //chama funcao quando o status do checkBox muda passando como paramentro bool o seTaChecado
                       setState(() {   //atualiza a tela
                         _toDoList[index]["ok"] = seTaChecado;   //se seTaChecado = true, selecionando, clica de novo no checkBox e seTaChecado fica falso
+                        _saveData();  // salva o arquivo quando o status é altarado para ok ou true :)
                       });
                     },
                   );
@@ -110,7 +127,7 @@ class _HomeState extends State<Home> {
   }
 
   //Usado para ler os dados do arquivo
-  Future<String> _data() async {
+  Future<String> _readData() async {
     //async é usado quando não conseguimos ter os dados instantaniamente
     try {
       final file =
