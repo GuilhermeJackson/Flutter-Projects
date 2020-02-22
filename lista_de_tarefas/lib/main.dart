@@ -17,6 +17,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List _toDoList = []; //criando uma lista
+
+  Map<String, dynamic> _lastRemoved;  //lista de itens removidos
+  int _lastRemovePos;
+
   final toDoController = TextEditingController();
 
   //ctrl . O = seleciona initState - metodo q carrega as informações ao inicializar o app
@@ -80,6 +84,7 @@ class _HomeState extends State<Home> {
             ),
           ),
 
+
           Expanded(
 
             child: ListView.builder(
@@ -103,7 +108,7 @@ class _HomeState extends State<Home> {
             child: Icon(Icons.delete, color: Colors.white),
           ),
         ),
-        direction: DismissDirection.startToEnd,   //Faz o direcionamento de arrastar da esquerda para a direta
+        direction: DismissDirection.horizontal,   //Faz o direcionamento de arrastar da esquerda para a direta
         child: CheckboxListTile(        // é a celula da lista q ira exibir as informações setadas
           title: Text(_toDoList[index]["title"]),
           value: _toDoList[index]["ok"],  // se o checkBox está checado ou não
@@ -116,6 +121,30 @@ class _HomeState extends State<Home> {
             });
           },
         ),
+        onDismissed: (direction){
+          setState(() {
+            _lastRemoved = Map.from(_toDoList[index]);    //adiciona o item na lista de itens excluidos pegando a posição
+            _lastRemovePos = index;
+            _toDoList.removeAt(index);
+
+            _saveData();
+
+            final snack = SnackBar(
+              content: Text("Tarefa \"${_lastRemoved["title"]}\" removida!"),
+              action: SnackBarAction(label: "Desfazer", onPressed: (){
+                setState(() {
+                  _toDoList.insert(_lastRemovePos, _lastRemoved);
+                  _saveData();
+                });
+              }),
+              duration: Duration(seconds: 3),
+            );
+
+            Scaffold.of(context).showSnackBar(snack);
+
+          });
+
+        },  // Ação ao arrastar para direita
       );
     }
   /**/
