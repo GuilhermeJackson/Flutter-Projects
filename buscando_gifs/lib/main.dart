@@ -3,6 +3,7 @@ import 'package:buscando_gifs/ui/home_page.dart' ;  //importando classe HomePage
 
 void main() {
   runApp(MaterialApp(
-      home: HomePage()
+      home: HomePage(),
+    theme: ThemeData(hintColor: Colors.white),
       ));
 }
