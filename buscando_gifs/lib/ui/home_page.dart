@@ -80,13 +80,16 @@ class _HomePageState extends State<HomePage> {
                           strokeWidth: 5.0,
                         ),
                       );
-                    default:  if (snapshot.hasError) return Center(
-                        child: Text(
+                    default:
+                      if (snapshot.hasError)
+                        return Center(
+                            child: Text(
                           "Erro ao carregar os dados :(",
                           style: TextStyle(color: Colors.amber, fontSize: 25.0),
                           textAlign: TextAlign.center,
                         ));
-                    else return _createGifTable(context, snapshot);
+                      else
+                        return _createGifTable(context, snapshot);
                   }
                 }),
           ),
@@ -96,8 +99,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Retonar esse widget caso a requisição da API der tudo certo ao carregar
-  Widget _createGifTable (BuildContext, AsyncSnapshot){
+  Widget _createGifTable(BuildContext context, AsyncSnapshot snapshot) {
+    return GridView.builder(
+      padding: EdgeInsets.all(10.0),
+      //gridDelegate - como os itens vao ser organizados na tela
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, crossAxisSpacing: 10.0, mainAxisSpacing: 10.0),
+      itemCount: snapshot.data["data"].length,
+      itemBuilder: (context, index){
+        //GestureDetector - usado para conseguir abrir uma imagem
+        return GestureDetector(
+          child: Image.network(snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+            height: 300.0,
+          fit: BoxFit.cover,),
 
+        );
+      },
+    );
   }
-
 }
