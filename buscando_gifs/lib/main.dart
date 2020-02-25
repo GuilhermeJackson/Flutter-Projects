@@ -1,3 +1,4 @@
+import 'package:buscando_gifs/ui/gif_page.dart';
 import 'package:flutter/material.dart';
 import 'package:buscando_gifs/ui/home_page.dart' ;  //importando classe HomePage
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:buscando_gifs/ui/gif_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -131,6 +132,12 @@ class _HomePageState extends State<HomePage> {
           child: Image.network(snapshot.data["data"][index]["images"]["fixed_height"]["url"],
             height: 300.0,
           fit: BoxFit.cover,),
+          // Trocando de tela
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => gif_page(snapshot.data["data"][index]))
+            );
+          },
         );
         else return Container(
           child: GestureDetector(
@@ -138,7 +145,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.add, color: Colors.white, size: 70.0,),
-                Text("Carregar...",
+                Text("Carregar mais...",
                 style: TextStyle(color: Colors.white, fontSize: 22.0),)
               ],
             ),
