@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+
+
  class gif_page extends StatelessWidget {
    // Informação coletada da home_page
    Map _gifData;
@@ -12,6 +15,15 @@ import 'package:flutter/material.dart';
        appBar: AppBar(
          title: Text(_gifData["title"]),
          backgroundColor: Colors.black,
+         //Criando as opções de compartilhamentos
+         actions: <Widget>[
+           IconButton(
+             icon: Icon(Icons.share),
+             onPressed: ( ) {
+              Share.share(_gifData["images"]["fixed_height"]["url"]);
+             },
+           )
+         ],
        ),
        backgroundColor: Colors.black,
        body: Center(
