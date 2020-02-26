@@ -1,4 +1,4 @@
-# chat_online_flutter
+# chat_online
 
 A new Flutter application.
 

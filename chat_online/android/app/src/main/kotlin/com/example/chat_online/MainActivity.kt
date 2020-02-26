@@ -1,4 +1,4 @@
-package com.example.chat_online_flutter
+package com.example.chat_online
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
