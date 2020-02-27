@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
-
   runApp(MyApp());
   // Esperando os dados para inserir no snapshot
   //DocumentSnapshot snapshot = await Firestore.instance.collection("menssagens").document("msg1").get();
@@ -11,14 +11,11 @@ void main() async {
   //QuerySnapshot snapshot = await Firestore.instance.collection("menssagens").getDocuments();
 
   // Sempre que houver uma mudança, uma função é chamada
-  Firestore.instance.collection("menssagens").snapshots().listen((snapshot){
+  Firestore.instance.collection("menssagens").snapshots().listen((snapshot) {
     for (DocumentSnapshot doc in snapshot.documents) {
       print(doc.data);
     }
   });
-
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -28,8 +25,8 @@ class MyApp extends StatelessWidget {
       //Tonalidade
       primaryColor: Colors.grey[300],
       //Brilho
-      primaryColorBrightness: Brightness.light
-  );
+      primaryColorBrightness: Brightness.light);
+
 //Definindo a cor padrão de varios componentes
   final ThemeData KDefaultTheme = ThemeData(
     primarySwatch: Colors.purple,
@@ -43,8 +40,10 @@ class MyApp extends StatelessWidget {
       title: "Nem a NASA rastreia...",
       // Remover a faixa de debug da tela do app
       debugShowCheckedModeBanner: false,
-       // Define um tema se for iphone e outro tema se for android
-       theme: Theme.of(context).platform == TargetPlatform.iOS ? KIOSTheme : KDefaultTheme,
+      // Define um tema se for iphone e outro tema se for android
+      theme: Theme.of(context).platform == TargetPlatform.iOS
+          ? KIOSTheme
+          : KDefaultTheme,
       home: ChatScreen(),
     );
   }
@@ -60,13 +59,14 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     // SafeArea - ignora as barrinhas do iPhone e android (barra com botao de voltar e minimizar os app e tal)
     return SafeArea(
-        bottom: false,
-        top: false,
+      bottom: false,
+      top: false,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Chat App"),
           centerTitle: true,
-          elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
+          elevation:
+              Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         ),
         body: Column(
           children: <Widget>[
@@ -74,15 +74,12 @@ class _ChatScreenState extends State<ChatScreen> {
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
               ),
-              child: TextComposer(
-
-              ),
+              child: TextComposer(),
             ),
           ],
         ),
       ),
     );
-
   }
 }
 
@@ -92,6 +89,8 @@ class TextComposer extends StatefulWidget {
 }
 
 class _TextComposerState extends State<TextComposer> {
+  bool _isComposing = false;
+
   @override
   Widget build(BuildContext context) {
     return IconTheme(
@@ -99,22 +98,41 @@ class _TextComposerState extends State<TextComposer> {
       child: Container(
         // Inserir o const no na margin, deixa o app mais leve
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: Theme.of(context).platform  == TargetPlatform.iOS ? BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey[200]))
-        ) : null,
+        decoration: Theme.of(context).platform == TargetPlatform.iOS
+            ? BoxDecoration(
+                border: Border(top: BorderSide(color: Colors.grey[200])))
+            : null,
         child: Row(
           children: <Widget>[
             Container(
               child: IconButton(
                 icon: Icon(Icons.photo_camera),
-                onPressed: (){},
+                onPressed: () {},
               ),
             ),
             Expanded(
               child: TextField(
-                decoration: InputDecoration.collapsed(hintText: "Escreva sua mensagem..."),
+                decoration: InputDecoration.collapsed(
+                    hintText: "Escreva sua mensagem..."),
+                onChanged: (text) {
+                  setState(() {
+                    // se o meu texto tiver mais q 0 caracteres ele vai estar compondo
+                    _isComposing = text.length > 0;
+                  });
+                },
               ),
-            )
+            ),
+            Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: Theme.of(context).platform == TargetPlatform.iOS
+                    ? CupertinoButton(
+                        child: Text("Enviar"),
+                        onPressed: _isComposing ? () {} : null,
+                      )
+                    : IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: _isComposing ? () {} : null,
+                      )),
           ],
         ),
       ),
