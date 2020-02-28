@@ -87,7 +87,6 @@ Future<FirebaseUser> _ensureLoggedIn() async {
   }
 }
 
-
 _handleSubmitted(String text) async{
   await _ensureLoggedIn();
   _sendMesage(text: text);
@@ -193,7 +192,7 @@ class _TextComposerState extends State<TextComposer> {
                 },
                 // Enviando mensagem pelo enter do teclado do celular
                 onSubmitted: (text) {
-                  //_handleSubmitted(text);
+                  _handleSubmitted(text);
                 },
               ),
             ),
