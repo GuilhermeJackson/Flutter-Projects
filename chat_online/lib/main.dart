@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
   runApp(MyApp());
@@ -16,9 +18,15 @@ void main() async {
       print(doc.data);
     }
   });
+
+
+
 }
 
+
 class MyApp extends StatelessWidget {
+
+
 //Definindo a cor padrão de varios componentes
   final ThemeData KIOSTheme = ThemeData(
       primarySwatch: Colors.orange,
@@ -47,6 +55,57 @@ class MyApp extends StatelessWidget {
       home: ChatScreen(),
     );
   }
+
+}
+
+// usado para pegar o usuario atualo do google
+final googleSignIn = GoogleSignIn();
+final auth = FirebaseAuth.instance;
+
+// Verifica se o usuario está logado
+Future<FirebaseUser> _ensureLoggedIn() async {
+  // Pegando usuario atual do google
+  GoogleSignInAccount user = googleSignIn.currentUser;
+  if (user == null)
+    // dar login sem o usuario ver caso ele ja tenha logado alguma vez
+    user = await googleSignIn.signInSilently();
+
+  if (user == null)
+    // Solicitar o login do google para o usuário
+    user = await googleSignIn.signIn();
+
+    //Verifica se o usuario do fireBase é null, e autentica o usuario no firebase (é necessario estar logado no fireBase e google)
+  if (await auth.currentUser() == null) {
+    GoogleSignInAuthentication credencials = await googleSignIn.currentUser.authentication;
+    //auth.signInWithGoogle(idToken: credencials.idToken, accessToken: credencials.accessToken); (usado em versões anteriores)
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: credencials.accessToken,
+      idToken: credencials.idToken,
+    );
+    final FirebaseUser user = (await auth.signInWithCredential(credential)) as FirebaseUser;
+    print("signed in " + user.displayName);
+    return user;
+  }
+}
+
+
+_handleSubmitted(String text) async{
+  await _ensureLoggedIn();
+  _sendMesage(text: text);
+}
+
+// funcao com parametros opicionais usado os { }
+void _sendMesage({String text, String imgURL}){
+  //Pega o dado da mensagem e manda para o FireBase
+  Firestore.instance.collection("messages").add(
+    {
+      "text" : text,
+      "imgUrl" : imgURL,
+      // Pegando o nome do usuario atraves do google
+      "senderName" : googleSignIn.currentUser.displayName,
+      "senderPhotoUrl" : googleSignIn.currentUser.photoUrl
+    }
+  );
 }
 
 class ChatScreen extends StatefulWidget {
@@ -72,11 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             Expanded(
               child: ListView(
-                children: <Widget>[
-                  ChatMessage(),
-                  ChatMessage(),
-                  ChatMessage()
-                ],
+                children: <Widget>[ChatMessage(), ChatMessage(), ChatMessage()],
               ),
             ),
             Divider(
@@ -101,9 +156,13 @@ class TextComposer extends StatefulWidget {
 }
 
 class _TextComposerState extends State<TextComposer> {
+  //usado cara verificação de login
   bool _isComposing = false;
+  //usado para pegar informações do textField
+  final _textController = TextEditingController();
 
   @override
+
   Widget build(BuildContext context) {
     return IconTheme(
       data: IconThemeData(color: Theme.of(context).accentColor),
@@ -124,6 +183,7 @@ class _TextComposerState extends State<TextComposer> {
             ),
             Expanded(
               child: TextField(
+                controller: _textController,
                 decoration: InputDecoration.collapsed(
                     hintText: "Escreva sua mensagem..."),
                 onChanged: (text) {
@@ -132,18 +192,27 @@ class _TextComposerState extends State<TextComposer> {
                     _isComposing = text.length > 0;
                   });
                 },
+                // Enviando mensagem pelo enter do teclado do celular
+                onSubmitted: (text) {
+                  //_handleSubmitted(text);
+                },
               ),
             ),
+
             Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: Theme.of(context).platform == TargetPlatform.iOS
                     ? CupertinoButton(
                         child: Text("Enviar"),
-                        onPressed: _isComposing ? () {} : null,
+                        onPressed: _isComposing ? () {
+                          _handleSubmitted(_textController.text);
+                        } : null,
                       )
                     : IconButton(
                         icon: Icon(Icons.send),
-                        onPressed: _isComposing ? () {} : null,
+                        onPressed: _isComposing ? () {
+                          _handleSubmitted(_textController.text);
+                        } : null,
                       )),
           ],
         ),
@@ -163,15 +232,18 @@ class ChatMessage extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
-              backgroundImage: NetworkImage("https://cdn.dicionariopopular.com/imagens/stonks-og.jpg"),
+              backgroundImage: NetworkImage(
+                  "https://cdn.dicionariopopular.com/imagens/stonks-og.jpg"),
             ),
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Daniel",
-                style: Theme.of(context).textTheme.subhead,),
+                Text(
+                  "Daniel",
+                  style: Theme.of(context).textTheme.subhead,
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   child: Text("teste"),
