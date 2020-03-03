@@ -87,6 +87,7 @@ Future<FirebaseUser> _ensureLoggedIn() async {
   }
 }
 
+
 _handleSubmitted(String text) async{
   await _ensureLoggedIn();
   _sendMesage(text: text);
