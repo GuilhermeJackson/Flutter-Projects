@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loja/tiles/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -7,12 +9,13 @@ class CustomDrawer extends StatelessWidget {
       decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
-                Color.fromARGB(200, 0, 0, 150),
-                Color.fromARGB(0, 0, 0, 0)
+                Color.fromARGB(255, 150, 236, 255),
+                Colors.white
               ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter
-          )),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight
+          )
+      ),
     );
     return Drawer(
       child: Stack(
@@ -30,15 +33,40 @@ class CustomDrawer extends StatelessWidget {
                     Positioned(
                       top: 8.0,
                       left: 0.0,
-                      child: Text("Flutter's\nBeers",
+                      child: Text("Flutter's\n Beers",
                       style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),),
 
+                    ),
+                    Positioned(
+                      left: 0.0,
+                      bottom: 0.0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Olá", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                          GestureDetector(
+                            child: Text("Entre ou cadastre-se >",
+                              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16.0, fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+
+                            },
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
-              )
+              ),
+              // insere uma linha na tela
+              Divider(),
+              DrawerTile(Icons.home, "Inicio"),
+              DrawerTile(Icons.list, "Cervejas"),
+              DrawerTile(Icons.location_on, "Bares"),
+              DrawerTile(Icons.home, "Meus pedidos"),
             ],
-          )
+          ),
         ],
       ),
     );
