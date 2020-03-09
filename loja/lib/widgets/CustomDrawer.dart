@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:loja/tiles/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
+
+  final PageController pageController;
+  CustomDrawer(this.pageController);
+
   @override
   Widget build(BuildContext context) {
     Widget _buildDrawerBack() => Container(
@@ -10,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
           gradient: LinearGradient(
               colors: [
                 Color.fromARGB(255, 150, 236, 255),
-                Colors.white
+                Color.fromARGB(220, 253, 111, 0)
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight
@@ -61,10 +65,10 @@ class CustomDrawer extends StatelessWidget {
               ),
               // insere uma linha na tela
               Divider(),
-              DrawerTile(Icons.home, "Inicio"),
-              DrawerTile(Icons.list, "Cervejas"),
-              DrawerTile(Icons.location_on, "Bares"),
-              DrawerTile(Icons.home, "Meus pedidos"),
+              DrawerTile(Icons.home, "Inicio", pageController, 0),
+              DrawerTile(Icons.list, "Cervejas", pageController, 1),
+              DrawerTile(Icons.location_on, "Bares", pageController, 2),
+              DrawerTile(Icons.home, "Meus pedidos", pageController, 3),
             ],
           ),
         ],
