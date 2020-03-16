@@ -22,6 +22,7 @@ class CategoryTile extends StatelessWidget {
       // trailing = setinha localizado a direita do titulo da categoria
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
+        // Passando para tela da categoria selecinada
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context)=>CategoryScreen(snapshot))
         );
