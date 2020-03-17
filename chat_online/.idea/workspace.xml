@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef1ad319-d191-4c6c-89f7-bd4e835190ce" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../loja/lib/tiles/product_tile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../loja/lib/screens/category_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../loja/lib/screens/category_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../loja/lib/tiles/category_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../loja/lib/tiles/category_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../loja/lib/tiles/product_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../loja/lib/tiles/product_tile.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -28,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="561">
-              <caret line="211" column="80" lean-forward="true" selection-start-line="211" selection-start-column="80" selection-end-line="211" selection-end-column="80" />
+              <caret line="211" column="80" selection-start-line="211" selection-start-column="80" selection-end-line="211" selection-end-column="80" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -79,7 +77,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="136" />
     <option name="y" value="116" />
     <option name="width" value="1177" />
@@ -91,8 +89,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,7 +127,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -173,10 +171,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15759312" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15687679" />
       <window_info id="Designer" order="1" />
       <window_info id="Captures" order="2" side_tool="true" />
       <window_info id="Resources Explorer" order="3" />
@@ -294,7 +292,7 @@
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
-          <caret line="211" column="80" lean-forward="true" selection-start-line="211" selection-start-column="80" selection-end-line="211" selection-end-column="80" />
+          <caret line="211" column="80" selection-start-line="211" selection-start-column="80" selection-end-line="211" selection-end-column="80" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>

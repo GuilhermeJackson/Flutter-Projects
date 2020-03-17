@@ -3,11 +3,47 @@ import 'package:loja/datas/product_data.dart';
 
 class ProductTile extends StatelessWidget {
   final String type;
-  final ProductData data;
-  ProductTile(this.type, this.data);
+  final ProductData product;
+  ProductTile(this.type, this.product);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    //InkWell = mesma coisa q GestureDetector só q realiza uma animação diferente
+    return InkWell(
+      child: Card(
+        // se type for igual a "grid" recebe uma Column(), se não recebe uma Row()
+        child: type == "grid" ?
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              //AspectRatio = nao varia conforme o tipo de aparelho
+              AspectRatio(
+                aspectRatio: 0.8,
+                child: Image.network(product.image[0],
+                // fit: BoxFit.cover = conteudo cobre todo o card
+                fit: BoxFit.cover,)
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text(product.title,
+                      style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text("R\$" + product.price.toStringAsFixed(2),
+                      style: TextStyle(color: Theme.of(context).primaryColor,
+                      fontSize: 17.0,
+                        fontWeight: FontWeight.bold
+                      ),)
+                    ],
+                  ),
+                ),
+              )
+            ],
+          )
+            : Row()
+      ),
+    );
   }
 }

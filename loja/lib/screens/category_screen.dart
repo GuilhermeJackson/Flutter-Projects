@@ -30,7 +30,7 @@ class CategoryScreen extends StatelessWidget {
           future: Firestore.instance.collection("products").document(snapshot.documentID).collection("escura").getDocuments(),
           builder: (context, snapshot){
             if (!snapshot.hasData)
-              return Center(child: CircularProgressIndicator(),);
+              return Center(child: CircularProgressIndicator());
             else
               return TabBarView(
                 // physics: NeverScrollableScrollPhysics() = Usado para não arrastar a tela com dedo, apenas ao selecionar o icon(TabBar)
@@ -43,11 +43,14 @@ class CategoryScreen extends StatelessWidget {
                           crossAxisCount: 2,
                           mainAxisSpacing: 4.0,
                           crossAxisSpacing: 4.0,
-                          childAspectRatio: 0.65),
+                          childAspectRatio: 0.65
+                      ),
                       itemCount: snapshot.data.documents.length,
                       itemBuilder: (context, index) {
                         return ProductTile("grid",ProductData.fromDocument(snapshot.data.documents[index]));
-                      }),
+
+                      }
+                      ),
 
                   ListView.builder(
                       padding: EdgeInsets.all(4.0),
