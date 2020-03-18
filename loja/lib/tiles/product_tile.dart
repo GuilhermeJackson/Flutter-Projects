@@ -20,7 +20,7 @@ class ProductTile extends StatelessWidget {
               //AspectRatio = nao varia conforme o tipo de aparelho
               AspectRatio(
                 aspectRatio: 0.8,
-                child: Image.network(product.image[0],
+                child: Image.network(product.images[0],
                 // fit: BoxFit.cover = conteudo cobre todo o card
                 fit: BoxFit.cover,)
               ),
@@ -28,6 +28,7 @@ class ProductTile extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(product.title,
                       style: TextStyle(fontWeight: FontWeight.w500)),

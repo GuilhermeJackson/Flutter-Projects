@@ -6,7 +6,7 @@ class ProductData {
   String title;
   String description;
   double price;
-  List image;
+  List images;
   List sizes;
 
   ProductData.fromDocument(DocumentSnapshot snapshot) {
@@ -14,7 +14,7 @@ class ProductData {
     title = snapshot.data["title"];
     description = snapshot.data["description"];
     price = snapshot.data["price"];
-    image = snapshot.data["image"];
-    sizes = snapshot.data["size"];
+    images = snapshot.data["images"];
+    sizes = snapshot.data["sizes"];
   }
 }
