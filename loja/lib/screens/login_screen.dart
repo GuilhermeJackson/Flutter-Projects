@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loja/screens/sigup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -20,7 +21,10 @@ class LoginScreen extends StatelessWidget {
             ),
             textColor: Colors.white,
             onPressed: (){
-
+              // pushReplacement = quando clicado, a tela é substituida (ao criar conta, o usuario nao precisa fazer o login, ela ja vai estar logado)
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context)=>SingUpScreen())
+              );
             },
           ),
         ],

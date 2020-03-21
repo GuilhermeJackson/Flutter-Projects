@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loja/screens/login_screen.dart';
 import 'package:loja/tiles/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -54,7 +55,9 @@ class CustomDrawer extends StatelessWidget {
                               style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16.0, fontWeight: FontWeight.bold),
                             ),
                             onTap: () {
-
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context)=> LoginScreen())
+                              );
                             },
                           ),
                         ],
