@@ -5,7 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 // Model = objeto q guarda o estado de alguma coisa (no caso o login)
 class UserModel extends Model {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   FirebaseUser firebaseUser;
   //Carrega as informações do usuário
@@ -13,7 +13,7 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
-  // deslogar
+
   // @required = usando para auto completar automatico quando a função for chamada (quando usado, o mesmo é obrigatório)
   void signUp({@required Map<String, dynamic> userData, @required String pass, @required VoidCallback onSucess, @required VoidCallback  onFail}) {
     // notificando o usuario que esta sendo carregado
@@ -21,48 +21,46 @@ class UserModel extends Model {
     notifyListeners();
 
     //tentativa de criar o usuario
-    _auth.createUserWithEmailAndPassword(
+    auth.createUserWithEmailAndPassword(
         email: userData["email"],
         password: pass
     ).then((user) async{
-          firebaseUser = user as FirebaseUser;
+      firebaseUser = user;
 
-          await _saveUserData(userData);
+      await _saveUserData(userData);
 
-          onSucess();
-          isLoading = false;
-          notifyListeners();
+      onSucess();
+      isLoading = false;
+      notifyListeners();
     }).catchError((e){
-        onFail();
-        isLoading = false;
-        notifyListeners();
+      onFail();
+      isLoading = false;
+      notifyListeners();
     });
   }
 
   //fazer o login
-  void signIn() async{
+  void signIn({@required String email, @required String pass,
+    @required VoidCallback onSuccess, @required VoidCallback onFail}) async {
     isLoading = true;
     notifyListeners();
 
     await Future.delayed(Duration(seconds: 3));
 
-    isLoading = false;
-
+    isLoading = true;
     notifyListeners();
   }
 
   //recuperar senha
-  void recoverPass(){
+  void recoverPass(String email){
 
   }
 
-  //verifica se o usuario está logado
-  bool isLoggedIn (){
 
-  }
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async{
     this.userData = userData;
     await Firestore.instance.collection("users").document(firebaseUser.uid).setData(userData);
   }
+
 }
