@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "862476341539",
+    "firebase_url": "https://chatonlineflutter-fb9cd.firebaseio.com",
+    "project_id": "chatonlineflutter-fb9cd",
+    "storage_bucket": "chatonlineflutter-fb9cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862476341539:android:cb9ce42411cf50f47c7c96",
+        "android_client_info": {
+          "package_name": "com.example.chat_online"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862476341539-6u6hkt6tfvkqhsprs8nuvijbt1nbkvm5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chat_online",
+            "certificate_hash": "01a76c1d328a08e1d670cbc90aeb3e1289b83383"
+          }
+        },
+        {
+          "client_id": "862476341539-n0cmpun61cl3gh560pspa3e9e8l96amj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLj4vUiW4SUdgkQghfVJ3AIY2dhJRrTJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862476341539-n0cmpun61cl3gh560pspa3e9e8l96amj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862476341539:android:8c2a5c8dcf1f39b77c7c96",
+        "android_client_info": {
+          "package_name": "com.lamim.projectsflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862476341539-g41saibroottcq7vtke4naki937jls7s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lamim.projectsflutter",
+            "certificate_hash": "01a76c1d328a08e1d670cbc90aeb3e1289b83383"
+          }
+        },
+        {
+          "client_id": "862476341539-n0cmpun61cl3gh560pspa3e9e8l96amj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLj4vUiW4SUdgkQghfVJ3AIY2dhJRrTJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862476341539-n0cmpun61cl3gh560pspa3e9e8l96amj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
