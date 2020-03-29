@@ -15,9 +15,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
         appBar: AppBar(
           title: Text("Cadastrar conta"),
           centerTitle: true,
@@ -118,13 +121,26 @@ class _SingUpScreenState extends State<SingUpScreen> {
         )
     );
   }
-
+  //Mensagem de sucesso e voltando para tela principal
   void _onSuccess(){
-
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text("Usuário criado com sucesso!!!"),
+      backgroundColor: Theme.of(context).primaryColor,
+      duration: Duration(seconds: 3)
+      )
+    );
+    Future.delayed(Duration(seconds: 2)).then((_){
+      Navigator.of(context).pop();
+    });
   }
 
   void _onFail(){
-
+    _scaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text("Falaha ao criar usuário!!!"),
+            backgroundColor: Colors.redAccent,
+            duration: Duration(seconds: 3)
+        )
+    );
   }
 }
 
