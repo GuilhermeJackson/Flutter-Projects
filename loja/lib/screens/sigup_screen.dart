@@ -96,7 +96,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           if(_formKey.currentState.validate()){
 
                             Map<String, dynamic> userData ={
-                              "name": _nameController,
+                              "name": _nameController.text,
                               "email": _emailController.text,
                               "adress": _addressController.text
                             };

@@ -5,8 +5,9 @@ import 'package:scoped_model/scoped_model.dart';
 
 // Model = objeto q guarda o estado de alguma coisa (no caso o login)
 class UserModel extends Model {
-  FirebaseAuth auth = FirebaseAuth.instance;
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+  Firestore _db = Firestore.instance;
   FirebaseUser firebaseUser;
   //Carrega as informações do usuário
   Map<String, dynamic> userData = Map();
@@ -25,6 +26,7 @@ class UserModel extends Model {
         email: userData["email"],
         password: pass
     ).then((user) async{
+
       firebaseUser = user;
 
       await _saveUserData(userData);
