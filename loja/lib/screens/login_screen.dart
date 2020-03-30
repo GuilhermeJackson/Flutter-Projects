@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           _scaffoldKey.currentState.showSnackBar(
                               SnackBar(content: Text("Insira o seu e-mail para recuperação!"),
                                   backgroundColor: Colors.redAccent,
-                                  duration: Duration(seconds: 3)
+                                  duration: Duration(seconds: 2)
                               )
                           );
                         else {
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   backgroundColor: Theme
                                       .of(context)
                                       .primaryColor,
-                                  duration: Duration(seconds: 3)
+                                  duration: Duration(seconds: 2)
                               )
                           );
                         }
@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _onFail(){
     _scaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text("Falaha ao realizar o login!!!"),
+        SnackBar(content: Text("Falha ao realizar o login!!!"),
             backgroundColor: Colors.redAccent,
             duration: Duration(seconds: 3)
         )

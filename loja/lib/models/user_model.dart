@@ -17,7 +17,8 @@ class UserModel extends Model {
   //Carrega usuário que já esatava logado quando o app é aberto novamente
   @override
   void addListener(VoidCallback listener) {
-    super.addListener(_loadCurrentUser);
+    super.addListener(listener);
+    _loadCurrentUser();
   }
 
   // @required = usando para auto completar automatico quando a função for chamada (quando usado, o mesmo é obrigatório)
