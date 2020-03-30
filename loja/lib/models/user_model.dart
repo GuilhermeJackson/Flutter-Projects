@@ -79,7 +79,7 @@ class UserModel extends Model {
 
   //recuperar senha
   void recoverPass(String email){
-
+    _auth.sendPasswordResetEmail(email: email);
   }
 
   // Indica se o usuario está logado
