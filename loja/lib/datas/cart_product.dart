@@ -3,10 +3,10 @@ import 'package:loja/datas/product_data.dart';
 
 class CartProduct{
   //id da categoria
-  String cid;
+  String cid; //id do carrinho
   String category;
   //id do produto
-  String pid;
+  String pid; // id do produto
   int quantity;
   String size;
 
