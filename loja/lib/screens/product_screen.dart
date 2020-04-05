@@ -5,6 +5,9 @@ import 'package:loja/datas/product_data.dart';
 import 'package:loja/models/cart_model.dart';
 import 'package:loja/models/user_model.dart';
 import 'package:loja/screens/login_screen.dart';
+import 'package:toast/toast.dart';
+
+import 'cart_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductData product;
@@ -18,6 +21,8 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   final ProductData product;
   String size;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   _ProductScreenState(this.product);
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,7 @@ class _ProductScreenState extends State<ProductScreen> {
     final Color primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(product.title),
         centerTitle: true,
@@ -129,6 +135,13 @@ class _ProductScreenState extends State<ProductScreen> {
                             cartProduct.pid = product.id;
                             cartProduct.category = product.category;
 
+                            Toast.show("Um produto adicionado no carrinho!!!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context)=> CartScreen())
+                            );
+
+
 
                             CartModel.of(context).addCartItem(cartProduct);
                           } else {
@@ -162,4 +175,15 @@ class _ProductScreenState extends State<ProductScreen> {
       ),
     );
   }
+
+  void _messageAddingProductInCart(){
+    _scaffoldKey.currentState.showSnackBar(
+        SnackBar(content: Text("Um produto adicionado no carrinho!!!"),
+            backgroundColor: Colors.redAccent,
+            duration: Duration(seconds: 3)
+        )
+    );
+  }
+
+
 }

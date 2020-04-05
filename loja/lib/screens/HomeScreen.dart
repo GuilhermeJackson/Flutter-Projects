@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loja/tabs/HomeTab.dart';
 import 'package:loja/tabs/ProductsTab.dart';
 import 'package:loja/widgets/CustomDrawer.dart';
+import 'package:loja/widgets/cart_button.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -16,6 +17,8 @@ class HomeScreen extends StatelessWidget {
         Scaffold(
           body: HomeTab(),
           drawer: CustomDrawer(_pageController),
+          // chamando o botao do carrinho
+          floatingActionButton: CartButton(),
         ),
         //Passando para tela de cerveja
         Scaffold(
@@ -24,8 +27,9 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
           ),
           drawer: CustomDrawer(_pageController),
-            body: (ProductsTab( )
-          ),
+            body: (ProductsTab( )),
+          // chamando o botao do carrinho
+          floatingActionButton: CartButton(),
         ),
         Container(color: Colors.blue),
         Container(color: Colors.pink),
