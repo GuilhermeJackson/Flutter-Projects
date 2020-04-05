@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loja/models/cart_model.dart';
 import 'package:loja/models/user_model.dart';
+import 'package:loja/tiles/cart_tile.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'login_screen.dart';
@@ -83,6 +84,18 @@ class CartScreen extends StatelessWidget {
                 ),
               )
 
+            );
+          } else {
+            return ListView(
+              children: <Widget>[
+                Column(
+                  // model.products.map = transforma cada produto em um CartTile
+                  children: model.products.map(
+                          (product){
+                    return CartTile(product);
+                  }).toList(),
+                )
+              ],
             );
           }
         }

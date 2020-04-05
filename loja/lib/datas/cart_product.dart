@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loja/datas/product_data.dart';
 
 class CartProduct{
+
+  //Não é viavel armazenar imagem, nome, preço e etc.. do produto pois o mesmo pode seur alterado enquanto o produto esta no carrinho ou em outro estado
+
   //id da categoria
   String cid; //id do carrinho
   String category;
