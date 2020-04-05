@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       // tudo será modificado quando o UserModel for modificado tbm
       model: UserModel(),
         // ScopedModel<CartModel> - usado abaixo do <UserModel> pq apenas o carrinho precisa do usuário e nao o usuario do carrinho
-        child: ScopedModelDescendant(
+        child: ScopedModelDescendant<UserModel>(
             builder: (context, child, model){
               return ScopedModel<CartModel>(
                   model: CartModel(model),
