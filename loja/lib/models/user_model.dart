@@ -8,6 +8,9 @@ class UserModel extends Model {
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // static UserModel of = forma mais simples para acessar o ScopedModel
+  static UserModel of(BuildContext context) => ScopedModel.of<UserModel>(context);
+
   FirebaseUser firebaseUser;
   //Carrega as informações do usuário
   Map<String, dynamic> userData = Map();

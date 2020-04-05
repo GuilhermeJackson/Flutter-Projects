@@ -12,6 +12,9 @@ class CartProduct{
 
   ProductData productData;
 
+  // Construtor vazio
+  CartProduct();
+
   // Contrutor - produto no carrinho
   CartProduct.fromDocument(DocumentSnapshot document){
    cid = document.documentID;
@@ -29,7 +32,7 @@ class CartProduct{
       "quantity" : quantity,
       "size" : size,
       // Armazena um resumo
-      "product" : productData.toResumeMap()
+      //"product" : productData.toResumeMap()
 
     };
   }
